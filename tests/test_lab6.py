@@ -1,34 +1,51 @@
-"""
-Юніт-тести для Лабораторної роботи № 6.
 
-Студенти повинні доповнити цей файл тестами для своїх рішень.
-"""
 import unittest
+import sys
+import os
 
-# TODO: Імпортуйте функції для тестування з вашого пакета
-# from src.назва_вашого_пакета.назва_модуля import ваша_функція
+# Додаємо шлях до папки src
+sys.path.insert(0, os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "../src")
+))
 
-class TestLab6(unittest.TestCase):
-
-    def test_example(self):
-        """Приклад тестового випадку."""
-        self.assertEqual(2 + 2, 4)
-
-    # TODO: Додайте тестові випадки для функцій у вашому пакеті.
-    # def test_your_function(self):
-    #     """Тестовий випадок для вашої_функції."""
-    #     # Приклад перевірки
-    #     self.assertEqual(ваша_функція(вхідні_дані), очікуваний_результат)
-
-    # def test_another_function_with_edge_cases(self):
-    #     """Тестовий випадок для іншої_функції з граничними випадками."""
-    #     # Тест з нулем
-    #     self.assertEqual(інша_функція(0), очікуваний_для_нуля)
-    #     # Тест з від'ємним числом
-    #     self.assertEqual(інша_функція(-5), очікуваний_для_від'ємного)
-    #     # Тест з великим числом
-    #     self.assertEqual(інша_функція(1000), очікуваний_для_великого)
+# Імпортуємо функції калькулятора
+from calculator import (
+    add, subtract, multiply, divide,
+    power, root, percentage
+)
 
 
-if __name__ == '__main__':
+class TestCalculator(unittest.TestCase):
+
+    def test_add(self):
+        self.assertEqual(add(5, 3), 8)
+
+    def test_subtract(self):
+        self.assertEqual(subtract(10, 4), 6)
+
+    def test_multiply(self):
+        self.assertEqual(multiply(5, 4), 20)
+
+    def test_divide(self):
+        self.assertEqual(divide(10, 2), 5)
+
+    def test_divide_zero(self):
+        with self.assertRaises(ValueError):
+            divide(10, 0)
+
+    def test_power(self):
+        self.assertEqual(power(2, 3), 8)
+
+    def test_root(self):
+        self.assertEqual(root(25), 5)
+
+    def test_root_negative(self):
+        with self.assertRaises(ValueError):
+            root(-9)
+
+    def test_percentage(self):
+        self.assertEqual(percentage(200, 10), 20)
+
+
+if __name__ == "__main__":
     unittest.main()
